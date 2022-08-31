@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import { PhoneBook } from './phoneBook/PhoneBook';
 import { ContactsList } from './contactsList/ContactsList';
@@ -8,30 +8,28 @@ import { Section } from './section/Section';
 import styles from './App.module.css';
 
 export const App = () => {
-  const initialContacts = JSON.parse(localStorage.getItem('LOCALSTORAGE_KEY')) || []
+  const initialContacts = () =>
+    JSON.parse(localStorage.getItem('LOCALSTORAGE_KEY')) || [];
 
   const [contacts, setContacts] = useState(initialContacts);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-      try {
-        const initialState = JSON.stringify(contacts);
-        localStorage.setItem('LOCALSTORAGE_KEY', initialState);
-        console.log(`useEffect ${contacts}`);
-      } catch (error) {
-        console.error('Set state error: ', error.message);
-      }
-    
+    try {
+      const initialState = JSON.stringify(contacts);
+      localStorage.setItem('LOCALSTORAGE_KEY', initialState);
+    } catch (error) {
+      console.error('Set state error: ', error.message);
+    }
   }, [contacts]);
 
-  useEffect(() => {}, [filter]);
+  // useEffect(() => {}, [filter]);
 
   const addNewContact = ({ name, number }) => {
     if (contacts.find(cont => cont.name === name)) {
       alert(`${name} is already in contacts`);
     } else {
       setContacts(oldCont => [...oldCont, { name, number, id: nanoid() }]);
-      console.log(`Contakty po dodaniu: ${{ contacts }}`);      
     }
   };
 
