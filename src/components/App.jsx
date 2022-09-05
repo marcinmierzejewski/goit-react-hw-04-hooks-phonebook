@@ -8,16 +8,16 @@ import { Section } from './section/Section';
 import styles from './App.module.css';
 
 export const App = () => {
-  const initialContacts = () =>
+  const initiateContacts = () =>
     JSON.parse(localStorage.getItem('LOCALSTORAGE_KEY')) || [];
 
-  const [contacts, setContacts] = useState(initialContacts);
+  const [contacts, setContacts] = useState(initiateContacts);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
     try {
-      const initialState = JSON.stringify(contacts);
-      localStorage.setItem('LOCALSTORAGE_KEY', initialState);
+      const initiateContacts = JSON.stringify(contacts);
+      localStorage.setItem('LOCALSTORAGE_KEY', initiateContacts);
     } catch (error) {
       console.error('Set state error: ', error.message);
     }
